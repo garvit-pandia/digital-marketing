@@ -113,6 +113,19 @@ ol {
   align-items: center;
 }
 
+.content-hero {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.content-hero img {
+  max-width: 80%;
+  margin-left: auto;
+  /* Ensure border-radius and shadows from inline styles or other classes work */
+}
+
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -307,14 +320,21 @@ footer {
 
   /* Grid Stacking */
   .grid-2-split,
+  .content-hero,
   .grid-2,
   .grid-3 {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .grid-2-split {
+  .grid-2-split,
+  .content-hero {
     text-align: center;
+  }
+
+  .content-hero img {
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .container {
