@@ -293,6 +293,12 @@ footer {
 @media (max-width: 768px) {
 
   /* Layout Adjustments */
+  .container {
+    width: 95%;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
   .hero {
     min-height: auto;
     padding-top: 3rem;
@@ -302,20 +308,26 @@ footer {
   .hero-content {
     margin: 0 auto;
     padding: 0 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
   }
 
-  .hero-image img {
+  .hero-image img,
+  .content-hero img {
     height: auto;
     width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
   /* Typography Scaling */
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    line-height: 1.25;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   /* Grid Stacking */
@@ -337,10 +349,6 @@ footer {
     margin: 0 auto;
   }
 
-  .container {
-    padding: 0 1.5rem;
-  }
-
   .section {
     padding: 3rem 0;
   }
@@ -349,15 +357,17 @@ footer {
   .mobile-menu-btn {
     display: block;
     z-index: 102;
+    padding: 0.5rem;
+    font-size: 2rem;
+    /* Easier tapping */
   }
 
   .nav-links {
     position: fixed;
     top: 0;
     right: -100%;
-    /* Hidden by default */
     height: 100vh;
-    width: 75%;
+    width: 80%;
     max-width: 300px;
     background-color: var(--bg-secondary);
     flex-direction: column;
@@ -367,8 +377,9 @@ footer {
     transition: right 0.3s ease;
     z-index: 101;
     overflow-y: auto;
-    gap: 1.5rem;
-    /* Better spacing for touch */
+    gap: 0;
+    /* Remove gap, use padding on links */
+    text-align: center;
   }
 
   .nav-links.active {
@@ -376,13 +387,22 @@ footer {
   }
 
   .nav-link {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     display: block;
-    padding: 0.5rem 0;
+    padding: 1rem 0;
+    /* Larger tap target */
     border-bottom: 1px solid var(--card-border);
+    width: 100%;
   }
 
-  /* Mobile Overlay (Optional) */
+  .btn {
+    display: inline-block;
+    width: auto;
+    /* Allow button to find its natural size */
+    margin: 0 auto;
+  }
+
+  /* Key: Mobile Overlay */
   .mobile-overlay {
     position: fixed;
     top: 0;
