@@ -1,21 +1,20 @@
 /* Digital Marketing Hub Design System */
 :root {
-  /* Color Palette */
-  --bg-primary: #0f172a;
-  /* Slate 900 */
-  --bg-secondary: #1e293b;
-  /* Slate 800 */
-  --text-primary: #f8fafc;
-  /* Slate 50 */
+  /* Color Palette: Ocean Depth */
+  --bg-primary: #020617;
+  /* Obsidian */
+  --bg-secondary: #0f172a;
+  /* Slate */
+  --text-primary: #f1f5f9;
+  /* Slate 200 */
   --text-secondary: #94a3b8;
   /* Slate 400 */
-  --accent-primary: #6366f1;
-  /* Indigo 500 */
-  --accent-glow: rgba(99, 102, 241, 0.5);
-  --accent-secondary: #14b8a6;
-  /* Teal 500 */
-  --success: #22c55e;
-  --card-border: rgba(255, 255, 255, 0.1);
+  --accent-primary: #3b82f6;
+  /* Royal Blue */
+  --accent-glow: rgba(59, 130, 246, 0.5);
+  --accent-secondary: #06b6d4;
+  /* Cyan */
+  --card-border: rgba(59, 130, 246, 0.2);
 
   /* Typography */
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
@@ -23,6 +22,20 @@
   /* Spacing */
   --container-width: 1200px;
   --header-height: 80px;
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* Behind everything */
+  pointer-events: none;
+  /* Allow clicking through */
+  opacity: 0.6;
+  /* Subtle effect */
 }
 
 * {
@@ -80,7 +93,8 @@ h4 {
 h1 {
   font-size: 3.5rem;
   font-weight: 800;
-  background: linear-gradient(to right, var(--text-primary), var(--accent-primary));
+  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+  background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
