@@ -1,5 +1,6 @@
 /* Digital Marketing Hub Design System */
 :root {
+  /* Default Theme: Dark */
   /* Color Palette: Ocean Depth */
   --bg-primary: #020617;
   /* Obsidian */
@@ -22,6 +23,41 @@
   /* Spacing */
   --container-width: 1200px;
   --header-height: 80px;
+}
+
+/* Light theme overrides (applied when [data-theme="light"] is set on <html>) */
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --accent-primary: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.35);
+  --accent-secondary: #0ea5e9;
+  --card-border: rgba(148, 163, 184, 0.5);
+}
+
+/* Light mode navbar: Gradient Glass Effect */
+[data-theme="light"] .navbar {
+  background: linear-gradient(to right, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.95));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Theme-based image switching */
+.img-dark {
+  display: block;
+}
+
+.img-light {
+  display: none;
+}
+
+[data-theme="light"] .img-dark {
+  display: none;
+}
+
+[data-theme="light"] .img-light {
+  display: block;
 }
 
 #canvas-container {
@@ -75,6 +111,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -209,6 +246,33 @@ p {
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  margin-left: 1.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
 }
 
 .logo {
@@ -393,6 +457,13 @@ footer {
     /* Larger tap target */
     border-bottom: 1px solid var(--card-border);
     width: 100%;
+  }
+
+  .theme-toggle {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 1rem;
   }
 
   .btn {

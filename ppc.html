@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+    <!-- Prevent theme flash - must be first script -->
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) { }
+        })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN92ZQMNRB"></script>
     <script>
@@ -34,6 +45,10 @@
             <a href="analytics.html" class="nav-link">Analytics</a>
             <a href="automation.html" class="nav-link">Auto</a>
             <a href="glossary.html" class="nav-link">Glossary</a>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"
+                aria-pressed="false">
+                🌙 Light mode
+            </button>
         </div>
     </nav>
 
@@ -48,8 +63,10 @@
                 </div>
                 <!-- Embedded generated image -->
                 <div>
-                    <img src="images/ppc_cursor_click_1769012058574.png" alt="PPC Advertising"
+                    <img src="images/ppc_cursor_click_1769012058574.png" alt="PPC Advertising" class="img-dark"
                         style="border-radius: 20px; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);">
+                    <img src="images/ppc_light_mode_1769537978726.png" alt="PPC Advertising" class="img-light"
+                        style="border-radius: 20px; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);">
                 </div>
             </section>
 

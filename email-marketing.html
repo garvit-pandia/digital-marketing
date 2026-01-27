@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+    <!-- Prevent theme flash - must be first script -->
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) { }
+        })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN92ZQMNRB"></script>
     <script>
@@ -34,6 +45,10 @@
             <a href="analytics.html" class="nav-link">Analytics</a>
             <a href="automation.html" class="nav-link">Auto</a>
             <a href="glossary.html" class="nav-link">Glossary</a>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"
+                aria-pressed="false">
+                🌙 Light mode
+            </button>
         </div>
     </nav>
 
@@ -47,8 +62,10 @@
             </div>
             <!-- Embedded generated image -->
             <div>
-                <img src="images/email_marketing_envelope_1769012010326.png" alt="Email Marketing"
+                <img src="images/email_marketing_envelope_1769012010326.png" alt="Email Marketing" class="img-dark"
                     style="border-radius: 20px; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);">
+                <img src="images/email_light_mode_1769537963346.png" alt="Email Marketing" class="img-light"
+                    style="border-radius: 20px; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);">
             </div>
         </section>
 
@@ -68,14 +85,26 @@
 
                 <div class="card">
                     <h3>Segmentation</h3>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Sending relevant content to specific groups.</p>
+                    <ul
+                        style="list-style-type: disc; padding-left: 20px; color: var(--text-secondary); margin-top: 0.5rem;">
+                        <li><strong>Demographics:</strong> Age, location, job title.</li>
+                        <li><strong>Behavioral:</strong> Purchase history, website activity.</li>
+                        <li><strong>Psychographic:</strong> Interests, values, lifestyle.</li>
+                    </ul>
                 </div>
-                <div style="border-left: 4px solid var(--accent-secondary); padding-left: 1rem;">
-                    <h4>Cart Abandonment</h4>
-                    <p>Automated reminders for users who left items in their cart. (High ROI)</p>
-                </div>
-                <div style="border-left: 4px solid var(--accent-secondary); padding-left: 1rem;">
-                    <h4>Re-engagement</h4>
-                    <p>Win back inactive subscribers before scrubbing them.</p>
+
+                <div class="card">
+                    <h3>Automation</h3>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Workflows that trigger based on user actions.</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="margin-bottom: 0.5rem;"><strong style="color: var(--accent-secondary)">Welcome
+                                Series:</strong><br>Immediate value for new signups.</p>
+                        <p style="margin-bottom: 0.5rem;"><strong style="color: var(--accent-secondary)">Cart
+                                Abandonment:</strong><br>Recover lost sales automatically.</p>
+                        <p><strong style="color: var(--accent-secondary)">Re-engagement:</strong><br>Win back inactive
+                            subscribers.</p>
+                    </div>
                 </div>
             </div>
         </section>

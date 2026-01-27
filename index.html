@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+    <!-- Prevent theme flash - must be first script -->
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) { }
+        })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN92ZQMNRB"></script>
     <script>
@@ -47,6 +58,10 @@
             <a href="analytics.html" class="nav-link">Analytics</a>
             <a href="automation.html" class="nav-link">Auto</a>
             <a href="glossary.html" class="nav-link">Glossary</a>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"
+                aria-pressed="false">
+                Light mode
+            </button>
         </div>
     </nav>
 
@@ -63,7 +78,11 @@
                 <!-- Embedded generated image -->
                 <div class="hero-image">
                     <img src="images/home_ecosystem_1769011220031.png" alt="Digital Marketing Ecosystem"
+                        class="img-dark"
                         style="width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);">
+                    <img src="images/home_light_mode_1769537892531.png" alt="Digital Marketing Ecosystem"
+                        class="img-light"
+                        style="width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);">
                 </div>
             </div>
         </section>

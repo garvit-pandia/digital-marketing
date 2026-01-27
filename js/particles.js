@@ -22,13 +22,41 @@ if (container) {
     const positions = new Float32Array(particleCount * 3);
     const velocities = [];
 
-    // Colors matching Ocean Depth theme (Blue/Cyan/White)
-    const colors = [];
-    const colorPalette = [
+    // Theme-aware color palettes
+    const darkThemeColors = [
         new THREE.Color('#3b82f6'), // Royal Blue
         new THREE.Color('#06b6d4'), // Cyan
         new THREE.Color('#ffffff')  // White
     ];
+
+    const lightThemeColors = [
+        new THREE.Color('#1d4ed8'), // Deep Blue
+        new THREE.Color('#0891b2'), // Dark Cyan
+        new THREE.Color('#3730a3')  // Indigo
+    ];
+
+    // Function to get current theme
+    const isLightMode = () => document.documentElement.getAttribute('data-theme') === 'light';
+
+    // Function to get color palette based on theme
+    const getColorPalette = () => isLightMode() ? lightThemeColors : darkThemeColors;
+
+    // Initialize colors array
+    const colors = new Float32Array(particleCount * 3);
+
+    // Function to update particle colors based on theme
+    const updateParticleColors = () => {
+        const colorPalette = getColorPalette();
+        for (let i = 0; i < particleCount; i++) {
+            const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+            colors[i * 3] = color.r;
+            colors[i * 3 + 1] = color.g;
+            colors[i * 3 + 2] = color.b;
+        }
+        if (particles && particles.geometry.attributes.color) {
+            particles.geometry.attributes.color.needsUpdate = true;
+        }
+    };
 
     for (let i = 0; i < particleCount; i++) {
         // Spread particles across a wide field
@@ -43,13 +71,16 @@ if (container) {
             z: (Math.random() - 0.5) * 0.05
         });
 
-        // Assign random color from palette
+        // Assign random color from palette (initial)
+        const colorPalette = getColorPalette();
         const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-        colors.push(color.r, color.g, color.b);
+        colors[i * 3] = color.r;
+        colors[i * 3 + 1] = color.g;
+        colors[i * 3 + 2] = color.b;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     // Material with vertex colors
     const material = new THREE.PointsMaterial({
@@ -62,6 +93,15 @@ if (container) {
 
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
+
+    // Listen for theme changes
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            // Delay to let the theme change first
+            setTimeout(updateParticleColors, 50);
+        });
+    }
 
     // Mouse interaction
     let mouseX = 0;

@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+    <!-- Prevent theme flash - must be first script -->
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) { }
+        })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN92ZQMNRB"></script>
     <script>
@@ -34,6 +45,10 @@
             <a href="analytics.html" class="nav-link active">Analytics</a>
             <a href="automation.html" class="nav-link">Auto</a>
             <a href="glossary.html" class="nav-link">Glossary</a>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"
+                aria-pressed="false">
+                🌙 Light mode
+            </button>
         </div>
     </nav>
 
@@ -47,8 +62,10 @@
             </div>
             <!-- Embedded generated image -->
             <div>
-                <img src="images/analytics_dashboard_1769011553830.png" alt="Analytics Dashboard"
+                <img src="images/analytics_dashboard_1769011553830.png" alt="Analytics Dashboard" class="img-dark"
                     style="border-radius: 20px; box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);">
+                <img src="images/analytics_light_mode_1769538013361.png" alt="Analytics Dashboard" class="img-light"
+                    style="border-radius: 20px; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);">
             </div>
         </section>
 
