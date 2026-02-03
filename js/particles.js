@@ -1,4 +1,4 @@
-// Three.js Data Stream Particles Animation
+    // Three.js Data Stream Particles Animation
 // Matches 'Ocean Depth' theme
 
 const container = document.getElementById('canvas-container');
