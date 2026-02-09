@@ -335,7 +335,7 @@ p {
   transform: translateY(-1px) scale(0.98);
 }
 
-/* Glassmorphism Cards */
+/* Glassmorphism Cards - GPU optimized */
 .card {
   background: var(--card-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -343,9 +343,9 @@ p {
   border: 1px solid var(--card-border);
   border-radius: 20px;
   padding: 2rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
-  overflow: hidden;
+  will-change: transform;
 }
 
 .card::before {
@@ -362,26 +362,9 @@ p {
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-5px);
   border-color: var(--accent-primary);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 30px var(--accent-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.card:hover::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  padding: 1px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px var(--accent-glow);
 }
 
 /* Navbar */
@@ -794,15 +777,15 @@ footer {
 }
 
 /* Navbar scroll state */
+/* Navbar scroll state - GPU optimized */
 .navbar-scrolled {
   background: rgba(15, 23, 42, 0.95) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  padding: 0.5rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="light"] .navbar-scrolled {
   background: rgba(248, 250, 252, 0.95) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Button ripple effect */

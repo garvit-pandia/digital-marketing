@@ -1,14 +1,13 @@
-// Scroll-triggered animations for premium feel
+// Scroll-triggered animations for premium feel - OPTIMIZED for performance
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Elements to animate on scroll
+    // Elements to animate on scroll (using IntersectionObserver - no scroll lag)
     const animateOnScroll = () => {
         const elements = document.querySelectorAll('.card, .section h2, .content-hero > div, .grid-3 > *, .grid-2 > *');
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    // Add staggered delay based on element index within its parent
                     const siblings = Array.from(entry.target.parentElement?.children || []);
                     const siblingIndex = siblings.indexOf(entry.target);
                     const delay = siblingIndex * 0.1;
@@ -38,25 +37,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize scroll animations
     animateOnScroll();
 
-    // Parallax effect on hero section (subtle)
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroContent = hero.querySelector('.hero-content');
-            const heroImageEl = hero.querySelector('.hero-image');
+    // OPTIMIZED: Single throttled scroll handler using requestAnimationFrame
+    let ticking = false;
+    const navbar = document.querySelector('.navbar');
 
-            if (heroContent && scrolled < 600) {
-                heroContent.style.transform = `translateY(${scrolled * 0.1}px)`;
-                heroContent.style.opacity = 1 - (scrolled * 0.002);
-            }
-            if (heroImageEl && scrolled < 600) {
-                heroImageEl.style.transform = `translateY(${scrolled * 0.15}px)`;
-            }
-        });
-    }
+    const handleScroll = () => {
+        const scrollY = window.pageYOffset;
 
-    // Add ripple effect to buttons
+        // Navbar scroll state (lightweight class toggle)
+        if (navbar) {
+            if (scrollY > 100) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        }
+
+        ticking = false;
+    };
+
+    // Use passive listener for better scroll performance
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(handleScroll);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Add ripple effect to buttons (click only, no scroll impact)
     document.querySelectorAll('.btn').forEach(button => {
         button.addEventListener('click', function (e) {
             const ripple = document.createElement('span');
@@ -77,23 +85,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Smooth reveal for navbar on scroll
-    let lastScroll = 0;
-    const navbar = document.querySelector('.navbar');
-
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll > 100) {
-                navbar.classList.add('navbar-scrolled');
-            } else {
-                navbar.classList.remove('navbar-scrolled');
-            }
-
-            lastScroll = currentScroll;
-        });
-    }
-
-    console.log('[Animations] Premium scroll animations initialized');
+    console.log('[Animations] Optimized scroll animations initialized');
 });
