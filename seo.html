@@ -36,7 +36,20 @@
 <body>
     <nav class="navbar container">
         <a href="index.html" class="logo">Digital<span>Hub</span></a>
-        <!-- Navigation will be updated globally later, using placeholder relative links for now -->
+
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+            Light mode
+        </button>
+
+        <button class="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
             <a href="social-media.html" class="nav-link">Social</a>
@@ -48,10 +61,6 @@
             <a href="analytics.html" class="nav-link">Analytics</a>
             <a href="automation.html" class="nav-link">Auto</a>
             <a href="glossary.html" class="nav-link">Glossary</a>
-            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode"
-                aria-pressed="false">
-                🌙 Light mode
-            </button>
         </div>
     </nav>
 
