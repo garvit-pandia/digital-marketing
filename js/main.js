@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileBtn && navMenu) {
         mobileBtn.addEventListener('click', () => {
             const isExpanded = mobileBtn.getAttribute('aria-expanded') === 'true';
-            
+
             // Toggle State
             mobileBtn.setAttribute('aria-expanded', !isExpanded);
             navMenu.classList.toggle('active');
@@ -78,10 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!themeToggle) return;
 
         const isDark = theme === 'dark';
+        const iconEl = themeToggle.querySelector('.theme-toggle-icon');
+        const textEl = themeToggle.querySelector('.theme-toggle-text');
 
         // aria-pressed = true when light mode is active (button visually "on")
         themeToggle.setAttribute('aria-pressed', String(!isDark));
-        themeToggle.innerText = isDark ? '🌙 Light mode' : '☀ Dark mode';
+
+        if (iconEl) iconEl.textContent = isDark ? '☀️' : '🌙';
+        if (textEl) textEl.textContent = isDark ? 'Light' : 'Dark';
     };
 
     const applyTheme = (theme, persist = true) => {

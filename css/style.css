@@ -16,6 +16,8 @@
   --accent-secondary: #06b6d4;
   /* Cyan */
   --card-border: rgba(59, 130, 246, 0.2);
+  --card-bg: rgba(15, 23, 42, 0.8);
+  --glass-blur: 12px;
 
   /* Typography */
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
@@ -23,6 +25,69 @@
   /* Spacing */
   --container-width: 1200px;
   --header-height: 80px;
+}
+
+/* ========================================
+   PREMIUM ANIMATIONS
+   ======================================== */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--accent-glow), 0 0 60px var(--accent-glow);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 /* Light theme overrides (applied when [data-theme="light"] is set on <html>) */
@@ -35,6 +100,8 @@
   --accent-glow: rgba(37, 99, 235, 0.35);
   --accent-secondary: #0ea5e9;
   --card-border: rgba(148, 163, 184, 0.5);
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --glass-blur: 12px;
 }
 
 /* Light mode navbar: Gradient Glass Effect */
@@ -185,6 +252,26 @@ h4 {
 h1 {
   font-size: 3.5rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Animated Gradient Text for Hero */
+.hero h1 {
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary),
+      #a855f7,
+      var(--accent-primary));
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Static gradient for other h1s */
+.section h1:not(.hero h1),
+h1:not(.hero h1) {
   background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
   background-clip: text;
   -webkit-background-clip: text;
@@ -205,35 +292,96 @@ p {
 /* Components */
 .btn {
   display: inline-block;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
+  padding: 0.9rem 1.8rem;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary {
-  background-color: var(--accent-primary);
+  background: linear-gradient(135deg, var(--accent-primary), #6366f1);
   color: white;
-  box-shadow: 0 4px 14px var(--accent-glow);
+  box-shadow: 0 4px 15px var(--accent-glow);
+  border: none;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transition: left 0.5s ease;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--accent-glow);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px var(--accent-glow), 0 0 40px var(--accent-glow);
 }
 
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Glassmorphism Cards */
 .card {
-  background-color: var(--bg-secondary);
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--card-border);
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 2rem;
-  transition: transform 0.3s ease, border-color 0.3s;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.02);
   border-color: var(--accent-primary);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.card:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 /* Navbar */
@@ -252,10 +400,17 @@ p {
   z-index: 1000;
 }
 
+/* Header Controls Container - Groups toggle + hamburger on mobile */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 /* Theme toggle button */
 .theme-toggle {
   margin-left: 1.5rem;
-  padding: 0.4rem 0.9rem;
+  padding: 0.5rem 1rem;
   border-radius: 999px;
   border: 1px solid var(--card-border);
   background: transparent;
@@ -421,13 +576,57 @@ footer {
     padding: 3rem 0;
   }
 
+  /* Header Controls - Side by side on mobile */
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  /* Compact theme toggle for mobile - icon-only style */
+  .theme-toggle {
+    margin-left: 0;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    border-radius: 10px;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+  }
+
+  .theme-toggle-text {
+    display: none;
+  }
+
+  .theme-toggle-icon {
+    font-size: 1.1rem;
+  }
+
   /* Navigation Drawer */
   .mobile-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 102;
     padding: 0.5rem;
-    font-size: 2rem;
-    /* Easier tapping */
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--card-border);
+    transition: all 0.2s ease;
+  }
+
+  .mobile-menu-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .mobile-menu-btn svg {
+    width: 20px;
+    height: 20px;
   }
 
   .nav-links {
@@ -446,7 +645,6 @@ footer {
     z-index: 1001;
     overflow-y: auto;
     gap: 0;
-    /* Remove gap, use padding on links */
     text-align: center;
   }
 
@@ -458,16 +656,8 @@ footer {
     font-size: 1.25rem;
     display: block;
     padding: 1rem 0;
-    /* Larger tap target */
     border-bottom: 1px solid var(--card-border);
     width: 100%;
-  }
-
-  .theme-toggle {
-    width: 100%;
-    justify-content: center;
-    margin-left: 0;
-    margin-top: 1rem;
   }
 
   .btn {
@@ -582,4 +772,119 @@ footer {
   .newsletter-form .btn {
     width: 100%;
   }
+}
+
+/* ========================================
+   SCROLL ANIMATIONS
+   ======================================== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Floating animation for hero image */
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Navbar scroll state */
+.navbar-scrolled {
+  background: rgba(15, 23, 42, 0.95) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 2rem;
+}
+
+[data-theme="light"] .navbar-scrolled {
+  background: rgba(248, 250, 252, 0.95) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Button ripple effect */
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple-effect 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Enhanced link hover effects */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Image hover zoom effect */
+.hero-image img,
+.content-hero img {
+  transition: transform 0.5s ease;
+}
+
+.hero-image:hover img,
+.content-hero:hover img {
+  transform: scale(1.02);
+}
+
+/* Section divider gradient line */
+.section::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  margin: 3rem auto 0;
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+.section:last-of-type::after {
+  display: none;
+}
+
+/* Glowing accent on focus for inputs */
+input:focus,
+textarea:focus {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px var(--accent-glow) !important;
+}
+
+/* Text selection styling */
+::selection {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* Smooth page transitions */
+main {
+  animation: fade-in-up 0.5s ease;
 }
